@@ -1280,8 +1280,8 @@ class BoomProfile:
                 f.flush()
                 fdatasync(f.fileno())
         try:
+            chmod(tmp_path, mode)
             rename(tmp_path, profile_path)
-            chmod(profile_path, mode)
             dir_fd = os_open(profile_dir, O_RDONLY | O_DIRECTORY | O_CLOEXEC)
             try:
                 fsync(dir_fd)
