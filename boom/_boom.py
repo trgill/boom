@@ -1050,7 +1050,7 @@ def load_profiles_for_class(
         pf_path = path_join(profiles_path, pf)
         try:
             profile_class(profile_file=pf_path)
-        except Exception as err:
+        except (OSError, IOError, ValueError, LookupError) as err:
             _log_warn(
                 "Failed to load %s from '%s': %s", profile_class.__name__, pf_path, err
             )

@@ -255,7 +255,7 @@ def write_host_profiles(force=False):
     for hp in _host_profiles:
         try:
             hp.write_profile(force)
-        except Exception as e:
+        except (OSError, IOError, ValueError, LookupError) as e:
             _log_warn(
                 "Failed to write HostProfile(machine_id='%s'): %s",
                 hp.disp_machine_id,
