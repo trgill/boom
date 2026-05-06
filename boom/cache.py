@@ -590,7 +590,7 @@ def _cache_path(img_path: str, update: bool = True, backup: bool = False) -> Cac
     path_mode = st[ST_MODE]
     path_uid = st[ST_UID]
     path_gid = st[ST_GID]
-    path_attrs: Dict[None, None] = {}  # FIXME xattr support
+    path_attrs: Dict[str, Any] = {}  # FIXME xattr support
 
     # Physically cache the image
     _insert_copy(boot_path, cache_file)

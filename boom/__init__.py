@@ -28,4 +28,4 @@ from ._boom import *
 from ._boom import __all__
 
 __version__ = "1.6.8"
-# vimself.: set et ts=4 sw=4 :
+# vim: set et ts=4 sw=4 :
