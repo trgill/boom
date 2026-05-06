@@ -2484,8 +2484,8 @@ class BootEntry:
         finally:
             close(tmp_fd)
         try:
+            chmod(tmp_path, BOOT_ENTRY_MODE)
             rename(tmp_path, entry_path)
-            chmod(entry_path, BOOT_ENTRY_MODE)
             dir_fd = os_open(boom_entries_path(), O_RDONLY | O_DIRECTORY | O_CLOEXEC)
             try:
                 fsync(dir_fd)
