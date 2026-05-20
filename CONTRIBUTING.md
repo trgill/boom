@@ -35,6 +35,72 @@ We use a standard **GitHub pull request workflow**. Here are the basic steps:
 
 -----
 
+## Commit Message Guidelines
+
+To maintain a clear and consistent project history, please follow these
+conventions when writing commit messages:
+
+### Commit Subject Format
+
+Commit subjects should follow the format:
+
+```
+subsystem: brief description of change
+```
+
+* Use **lowercase** for the description
+* Do **not** end with a period
+* Keep it **concise** (under 72 characters preferred)
+* Use the **imperative mood** ("fix bug" not "fixed bug")
+
+Examples:
+* `boom: add support for UEFI secure boot`
+* `osprofile: fix profile loading for Ubuntu 22.04`
+* `ci: update GitHub Actions to use Node.js 24`
+
+### Issue References
+
+All commits should reference related GitHub issues using one of these tags
+in the commit message body:
+
+* **`Resolves: #XXX`** - Use when the commit fully resolves the issue
+* **`Related: #XXX`** - Use when the commit is related but doesn't fully resolve
+
+Example:
+```
+bootloader: add timeout configuration option
+
+Add support for configuring the bootloader timeout value through
+the boom configuration file.
+
+Resolves: #123
+
+Signed-off-by: Your Name <your.email@example.com>
+```
+
+### Developer Certificate of Origin
+
+All commits must include a `Signed-off-by` line to indicate agreement with
+the [Developer Certificate of Origin](https://developercertificate.org/).
+Add it using:
+
+```bash
+git commit -s -m "your commit message"
+```
+
+Or manually add to your commit message:
+```
+Signed-off-by: Your Name <your.email@example.com>
+```
+
+### Project Assignment
+
+When creating or working on issues, please ensure they are assigned to the
+appropriate GitHub project (e.g., "Bug Fixes", "Features") to help with
+tracking and release planning.
+
+-----
+
 ## Setting up a Dev Environment
 
 To get started with development on a **RHEL, Fedora, or CentOS-based
