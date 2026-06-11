@@ -53,17 +53,22 @@ _STRATISD_TIMEOUT = 120000
 _DBUS_OBJECT_MANAGER_IFACE = "org.freedesktop.DBus.ObjectManager"
 
 
-def pool_name_to_pool_uuid(pool_name: str) -> str:  # pragma: no cover
+def pool_name_to_pool_uuid(
+    pool_name: str, bus_factory=lambda: dbus.SystemBus()
+) -> str:  # pragma: no cover
     """Return the UUID of the pool named ``pool_name`` as a string.
 
     :param pool_name: The name of the Stratis pool.
+    :param bus_factory: Optional callable that returns a D-Bus connection.
+                        Defaults to creating a SystemBus connection.
+                        Used for dependency injection in tests.
     :returns: A string representation of the pool UUID value. The
               returned string contains the un-formatted character
               sequence that makes up the pool UUID.
 
     :rtype: str
     """
-    bus = dbus.SystemBus()
+    bus = bus_factory()
     _log_debug_stratis(
         "Connecting to %s at %s via system bus", (_STRATISD_SERVICE, _STRATISD_PATH)
     )
