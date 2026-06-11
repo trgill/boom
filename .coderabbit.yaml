@@ -1,0 +1,38 @@
+# CodeRabbit AI Configuration for boom-boot
+#
+# This configuration ensures CodeRabbit focuses on actionable bug fixes
+# and security issues rather than incomplete or theoretical improvements.
+
+reviews:
+  # Request high-level summaries with focus on correctness
+  high_level_summary: true
+
+  # Custom instructions to guide CodeRabbit's review behavior
+  instructions:
+    - "Only suggest refactoring or API changes if the suggestion includes complete implementation (e.g., if suggesting dependency injection, include the test code that uses it)"
+    - "Avoid suggesting changes that add complexity without immediate, demonstrable value"
+    - "Focus on bugs, security issues, and correctness problems in PR reviews"
+    - "Do not suggest changes to code marked with '# pragma: no cover' unless fixing an actual bug"
+    - "Avoid premature optimization and theoretical improvements"
+    - "When creating issues for potential improvements, ensure they describe complete solutions, not partial API changes"
+
+  # Enforce complete, actionable suggestions
+  request_changes_workflow: false
+
+  # Path-specific rules
+  path_instructions:
+    - path: "**/*.py"
+      instructions:
+        - "Prioritize correctness and security over style and architecture"
+        - "Flag actual bugs, race conditions, and security vulnerabilities"
+        - "Avoid suggesting testability improvements without corresponding test implementations"
+
+# Language-specific settings
+language_settings:
+  python:
+    # Focus on substantive issues
+    enable_review_categories:
+      - security
+      - correctness
+      - performance_bugs
+      - error_handling
