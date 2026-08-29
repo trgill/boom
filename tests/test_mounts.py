@@ -18,7 +18,7 @@ import re
 log = logging.getLogger()
 
 from boom import *
-import boom.mounts
+from boom import mounts as boom_mounts
 from boom.mounts import *
 
 from tests import *
@@ -90,27 +90,27 @@ class MountsHelperTests(unittest.TestCase):
                     parse_mount_units([mount])
 
     def test__unescape_colon(self):
-        unescaped = boom.mounts._unescape(r"foo\x3abar")
+        unescaped = boom_mounts._unescape(r"foo\x3abar")
         self.assertEqual(unescaped, "foo:bar")
 
     def test__unescape_colon_multiple(self):
-        unescaped = boom.mounts._unescape(r"foo\x3abar\x3abaz\x3aquux")
+        unescaped = boom_mounts._unescape(r"foo\x3abar\x3abaz\x3aquux")
         self.assertEqual(unescaped, "foo:bar:baz:quux")
 
     def test__unescape_other(self):
-        unescaped = boom.mounts._unescape(r"foo\x0abar")
+        unescaped = boom_mounts._unescape(r"foo\x0abar")
         self.assertEqual(unescaped, r"foo\x0abar")
 
     def test__unescape_other_null(self):
-        unescaped = boom.mounts._unescape(r"foo\x00bar")
+        unescaped = boom_mounts._unescape(r"foo\x00bar")
         self.assertEqual(unescaped, r"foo\x00bar")
 
     def test__unescape_bad_str_raises(self):
         with self.assertRaises(AttributeError):
-            boom.mounts._unescape(None)
+            boom_mounts._unescape(None)
 
         with self.assertRaises(AttributeError):
-            boom.mounts._unescape(0)
+            boom_mounts._unescape(0)
 
     def test_parse_swap_units(self):
         swap_list = ["/dev/test/var:defaults", "/dev/sda5:pri=1"]
@@ -137,7 +137,7 @@ class MountsHelperTests(unittest.TestCase):
     @unittest.skipIf(not have_root_lv(), "requires root LV")
     def test__detect_fstype(self):
         root_device = f"/dev/{get_root_lv()}"
-        fstype = boom.mounts._detect_fstype(root_device)
+        fstype = boom_mounts._detect_fstype(root_device)
         self.assertIsNotNone(fstype)
         self.assertRegex(fstype, r"^[A-Za-z0-9._+-]+$")
 
@@ -145,7 +145,7 @@ class MountsHelperTests(unittest.TestCase):
     def test_parse_mount_units_no_fstype(self):
         root_device = f"/dev/{get_root_lv()}"
         mount_list = [f"{root_device}:/somewhere"]
-        fstype = boom.mounts._detect_fstype(root_device)
+        fstype = boom_mounts._detect_fstype(root_device)
         xunit = f"systemd.mount-extra={root_device}:/somewhere:{fstype}:defaults"
 
         unit = parse_mount_units(mount_list)[0]
